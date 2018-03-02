@@ -3,5 +3,6 @@ class HomeController < ApplicationController
   end
 
   def noticias
+    @posts = Post.where(state: true)
   end
 end

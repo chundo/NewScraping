@@ -4,8 +4,8 @@
     <title>NoticiasScraping</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%=   javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!--ESTILOS Y BOOSTRAP-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!--RESPONSIVE-->
@@ -39,6 +39,8 @@
         </form>
       </div>
     </nav>
+    
+    
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Comparte tu noticias</h1>
@@ -49,6 +51,9 @@
             </p>
         </div>
     </section>
+    
+
+    
 
     <div class="container-fluid">    
         <%= yield %>
