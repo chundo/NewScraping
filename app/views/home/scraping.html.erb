@@ -1,0 +1,4 @@
+<%= form_tag(scraping_path, :class => 'col-12') do %>
+    <%= text_field_tag :url, nil, :class => 'input-code col-12', :placeholder => "Giveback code" %>
+    <%= submit_tag('Submit', :class => 'col-12 input-submit-code', 'data-disable-with'=>'Give back') %>
+<% end %>
