@@ -9,6 +9,10 @@ class HomeController < ApplicationController
     @posts = Post.where(state: true)
   end
 
+  def noticia
+    @post =  Post.find(params[:id])
+  end
+
   def scraping
     
     if params['url'] 
