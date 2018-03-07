@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   end
 
   def noticia
-    @post =  Post.find(params[:id])
+    @post =  Post.friendly.find(params[:id])
   end
 
   def scraping

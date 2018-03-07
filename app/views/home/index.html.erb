@@ -22,7 +22,8 @@
             <div class="entry-content">
               <%= post.body.html_safe %>...
               <br>
-              <a href="blog-single.html"class="more-link">Read More</a>
+              <!--<a href="blog-single.html"class="more-link">Read More</a>-->
+              <%= link_to 'Leer Mas', noticia_path(post) %>
             </div>
           </div>
         <% end %>
