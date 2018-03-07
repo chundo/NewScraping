@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   require 'open-uri'
 
   def index
+    @posts = Post.where(state: true)
   end
 
   def noticias

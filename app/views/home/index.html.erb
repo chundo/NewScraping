@@ -1,64 +1,81 @@
-<div class="card-columns">
-  <div class="card">
-    <img class="card-img-top" src="https://www.infobae.com/new-resizer/cWD6Ik10gmFSC0q7D6i2fPgq2rM=/600x0/filters:quality(100)/s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2017/11/17135508/Revolucion-tecnologica-1-2.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title that wraps to a new line</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+<div class="content-wrap">
+
+    <div class="container clearfix">
+
+      <!-- Posts
+      ============================================= -->
+      <div id="posts" class="post-grid grid-container grid-3 clearfix" data-layout="fitRows">
+
+        <% @posts.each do |post| %>
+          <div class="entry clearfix">
+            <div class="entry-image">
+              <a href="images/blog/full/17.jpg" data-lightbox="image"><img class="image_fade" src="<%= post.image %>" alt="Standard Post with Image"></a>
+            </div>
+            <div class="entry-title">
+              <h2><a href="blog-single.html"><%= post.name %></a></h2>
+            </div>
+            <ul class="entry-meta clearfix">
+              <li><i class="icon-calendar3"></i> 10th Feb 2014</li>
+              <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
+              <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+            </ul>
+            <div class="entry-content">
+              <%= post.body.html_safe %>...
+              <br>
+              <a href="blog-single.html"class="more-link">Read More</a>
+            </div>
+          </div>
+        <% end %>
+        
+        <!--
+        <div class="entry clearfix">
+          <div class="entry-image">
+            <iframe src="http://player.vimeo.com/video/87701971" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+          <div class="entry-title">
+            <h2><a href="blog-single-full.html">This is a Standard post with a Vimeo Video</a></h2>
+          </div>
+          <ul class="entry-meta clearfix">
+            <li><i class="icon-calendar3"></i> 16th Feb 2014</li>
+            <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 19</a></li>
+            <li><a href="#"><i class="icon-film"></i></a></li>
+          </ul>
+          <div class="entry-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
+            <a href="blog-single-full.html"class="more-link">Read More</a>
+          </div>
+        </div>
+
+        <div class="entry clearfix">
+          <div class="entry-image">
+            <iframe width="560" height="315" src="http://www.youtube.com/embed/SZEflIVnhH8" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="entry-title">
+            <h2><a href="blog-single-full.html">This is a Standard post with a Youtube Video</a></h2>
+          </div>
+          <ul class="entry-meta clearfix">
+            <li><i class="icon-calendar3"></i> 30th Apr 2014</li>
+            <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 34</a></li>
+            <li><a href="#"><i class="icon-film"></i></a></li>
+          </ul>
+          <div class="entry-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
+            <a href="blog-single-full.html"class="more-link">Read More</a>
+          </div>
+        </div>
+        -->
+      </div><!-- #posts end -->
+
+      <!-- Pagination
+      ============================================= -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <a href="#" class="btn btn-outline-secondary float-left">&larr; Older</a>
+          <a href="#" class="btn btn-outline-dark float-right">Newer &rarr;</a>
+        </div>
+      </div>
+      <!-- .pager end -->
+
     </div>
+
   </div>
-  <div class="card p-3">
-    <blockquote class="blockquote mb-0 card-body">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="https://www.infobae.com/new-resizer/cWD6Ik10gmFSC0q7D6i2fPgq2rM=/600x0/filters:quality(100)/s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2017/11/17135508/Revolucion-tecnologica-1-2.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card bg-primary text-white text-center p-3">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-      <footer class="blockquote-footer">
-        <small>
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img" src="https://www.infobae.com/new-resizer/cWD6Ik10gmFSC0q7D6i2fPgq2rM=/600x0/filters:quality(100)/s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2017/11/17135508/Revolucion-tecnologica-1-2.jpg" alt="Card image">
-  </div>
-  <div class="card p-3 text-right">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-</div>
