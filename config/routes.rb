@@ -1,5 +1,6 @@
 Rails.application.routes.draw do  
 
+  resources :tags
   root 'home#index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :categories
