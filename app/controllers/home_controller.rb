@@ -14,6 +14,10 @@ class HomeController < ApplicationController
     @post =  Post.friendly.find(params[:id])
   end
 
+  def categoria 
+    @category =  Category.friendly.find(params[:id])
+  end
+
   def scraping
     
     if params['url'] 
