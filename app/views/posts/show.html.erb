@@ -27,7 +27,7 @@
 
 <p>
   <strong>Video:</strong>
-  <%= @post.video %>
+  <iframe id="player-iframe" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" src="<%= @post.video %>"> &lt;video width="100%" height="100%" autoplay src="<%= @post.video %>"> </iframe>
 </p>
 
 <p>

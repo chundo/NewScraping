@@ -7,32 +7,61 @@
 
 	<!-- Stylesheets
 	============================================= -->
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="/style.css" type="text/css" />
-	<link rel="stylesheet" href="/css/dark.css" type="text/css" />
-	<link rel="stylesheet" href="/css/font-icons.css" type="text/css" />
-	<link rel="stylesheet" href="/css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
+	<link href="http://fonts.googleapis.com/css?family=Poppins:200,300,400,400i,600,700|Montserrat:300,400,700|Caveat+Brush" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/swiper.css" type="text/css" />
 
-	<link rel="stylesheet" href="/css/responsive.css" type="text/css" />
+	<!-- Music Specific Stylesheet -->
+	<link rel="stylesheet" href="/music/music.css" type="text/css" />
+	<!-- / -->
+
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="/et-line.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="/music/css/fonts.css" type="text/css" />
+
+	<!-- Bootstrap Switch CSS -->
+	<link rel="stylesheet" href="css/components/bs-switches.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+
+	<!-- Audio Player Plugin CSS -->
+	<link rel="stylesheet" href="/music/css/mediaelement/mediaelementplayer.css">
 
 	<!-- Document Title
 	============================================= -->
-	<title>Blog - Grid 3 Columns | Canvas</title>
+	<title>Music Steaming | Canvas</title>
+
+	<style>
+		@media (max-width: 479px) {
+			.swiper_wrapper:not(.force-full-screen),
+			.swiper_wrapper:not(.force-full-screen):not(.canvas-slider-grid) .swiper-slide {
+				height: 300px !important;
+			}
+		}
+
+		.css3-spinner { background-color: #131722; }
+	</style>
 
 </head>
 
-<body class="stretched">
+<body class="stretched bgcolor2" data-loader="4" data-loader-color="theme">
 
 	<!-- Document Wrapper
 	============================================= -->
-	<div id="wrapper" class="clearfix">
+	<div id="wrapper" class="clearfix" style="margin-bottom: 40px">
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="full-header">
+		<header id="header" class="full-header transparent-header dark no-sticky">
 
 			<div id="header-wrap">
 
@@ -43,26 +72,35 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="http://mblazquez.es/wp-content/uploads/ilustrate0001.png"><img src="http://mblazquez.es/wp-content/uploads/ilustrate0001.png" alt="Canvas Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="http://mblazquez.es/wp-content/uploads/ilustrate0001.png"><img src="http://mblazquez.es/wp-content/uploads/ilustrate0001.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="standard-logo" data-dark-logo="/music/images/logo-dark.png"><img src="/music/images/logo.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="/music/images/logo-dark@2x.png"><img src="/music/images/logo@2x.png" alt="Canvas Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
 					============================================= -->
-					<nav id="primary-menu">
+					<nav id="primary-menu" class="clearfix not-dark">
 
 						<ul>
-                            <li>
-                                <a href="/"><div>Home</div></a>
-                            </li>
-							<!--
-							<li>
-                                <a href="/posts"><div>Posts</div></a>
+							<li class="active"><a href="#"><div>Home</div></a></li>
+							<li><a href="#"><div>Musics</div></a>
+								<ul>
+									<li><a href="#"><div>Featured</div></a></li>
+									<li><a href="#"><div>New Arrivals</div></a></li>
+									<li><a href="#"><div>Old Popular</div></a></li>
+									<li><a href="#"><div>Top 90's</div></a></li>
+								</ul>
 							</li>
-							-->
-                            <li>
-                                <a href="/scraping"><div>Scraping</div></a>
-							</li>							
+							<li><a href="#"><div>About</div></a></li>
+							<li><a href="#"><div>Discover</div></a></li>
+							<li><a href="#"><div>Artists</div></a>
+								<ul>
+									<li><a href="#"><div>A-Z Artists</div></a></li>
+									<li><a href="#"><div>New Artists</div></a></li>
+									<li><a href="#"><div>Popular Artists</div></a></li>
+								</ul>
+							</li>
+							<li><a href="#"><div>Videos</div></a></li>
+							<li><a href="#"><div>Contact</div></a></li>
 						</ul>
 
 						<!-- Top Search
@@ -70,7 +108,7 @@
 						<div id="top-search">
 							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
 							<form action="search.html" method="get">
-								<input type="text" name="q" class="form-control" value="" placeholder="Que estas buscando ?">
+								<input type="text" name="q" class="form-control" value="" placeholder="Find your Music here....">
 							</form>
 						</div><!-- #top-search end -->
 
@@ -82,46 +120,23 @@
 
 		</header><!-- #header end -->
 
-		<!-- Page Title
-		============================================= -->
-		<section id="page-title">
-
-			<div class="container clearfix">
-				<h1>NoticeScraping</h1>
-				<span>Todas las noticias que nunca imaginastes</span>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<!--<li class="breadcrumb-item active" aria-current="page">Blog</li>-->
-				</ol>
-			</div>
-
-		</section><!-- #page-title end -->
-
-		<!-- Content
-		============================================= -->
-		<section id="content">
-
-            <%= yield %>
-
-		</section><!-- #content end -->
+		<%= yield %>
 
 		<!-- Footer
 		============================================= -->
-		<footer id="footer" class="dark">
+		<footer id="footer" class="noborder dark" style="background-color: #111;">
 
 			<!-- Copyrights
 			============================================= -->
-			<div id="copyrights">
+			<div id="copyrights" style="color: #444;">
 
 				<div class="container clearfix">
 
 					<div class="col_half">
-						Copyrights &copy; 2018 Todos los derechos reservados.<br>
-						<!--<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>-->
+						Copyrights &copy; 2017 All Rights Reserved by Canvas Inc.
 					</div>
 
-					<!--
-					<div class="col_half col_last tright">
+					<div class="col_half col_last">
 						<div class="fright clearfix">
 							<a href="#" class="social-icon si-small si-borderless si-facebook">
 								<i class="icon-facebook"></i>
@@ -163,12 +178,7 @@
 								<i class="icon-linkedin"></i>
 							</a>
 						</div>
-
-						<div class="clear"></div>
-
-						<i class="icon-envelope2"></i> info@canvas.com <span class="middot">&middot;</span> <i class="icon-headphones"></i> +91-11-6541-6369 <span class="middot">&middot;</span> <i class="icon-skype2"></i> CanvasOnSkype
 					</div>
-					-->
 
 				</div>
 
@@ -176,20 +186,21 @@
 
 		</footer><!-- #footer end -->
 
+		
+
 	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
 	============================================= -->
-	<div id="gotoTop" class="icon-angle-up"></div>
+	<div id="gotoTop" class="icon-angle-up" style="bottom: 70px;"></div>
 
 	<!-- External JavaScripts
 	============================================= -->
-	<script src="/js/jquery.js"></script>
-	<script src="/js/plugins.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="/js/functions.js"></script>
-
+	<script src="js/functions.js"></script>
 </body>
 </html>

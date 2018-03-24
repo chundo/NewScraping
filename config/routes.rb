@@ -1,6 +1,7 @@
 Rails.application.routes.draw do  
 
   
+  resources :covers
   root 'home#index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :categories

@@ -1,6 +1,10 @@
-
 require 'nokogiri'
 require 'open-uri'
+require 'date'
+require 'net/http'
+
+
+
 
 #rails g scaffold Post name body:text image url sources video cover state:boolean category:references
 
@@ -56,24 +60,50 @@ puts '------------------------------------------'
 #https://www.elmanana.com
 
 
-##SCRAPING LINK SEMANA
-url = 'http://www.semana.com/confidenciales/articulo/amazon-llego-a-colombia/558968'
+##SCRAPING LINK SEMANA https://vepeliculas.tv/
+=begin
+url = 'https://vepeliculas.tv/'
+document = Nokogiri::HTML(open(url))
+div_main = document.css('div.tray-content')
+div_main.css('div.tray-item').each do |post|
+  contect = post.css('div.tray-item-content')
+  link_con = post.css('div.tray-item-content').css('a').attr('href')
+  img_con = post.css('div.tray-item-content').css('img').attr('src')
+  name_con = post.css('div.tray-item-content').css('div.tray-item-description').css('div.tray-item-title').css('a').text
+  con2 = post.css('div.tray-item-content').css('div.tray-item-play').css('a').attr('data-content')
+  #category_con = con2
+  #body_con = con2
+  
+  #https://vepeliculas.tv/ajax.php?time=1521648122294
+  #https://vepeliculas.tv/ajax.php?time=1521648614
+  #post_url = "https://vepeliculas.tv/ajax.php?time=#{Time.now().strftime('%s')}&Ajax_Episode=true&movieid=oc60w&action=episode_get&episode=1&User_Login=false&userIp=190.146.222.32"
+  #option = "Ajax_Episode=true&movieid=oc60w&action=episode_get&episode=1&User_Login=false&userIp=190.146.222.32"
+  #res = Net::HTTP.post_form(post_url)
+  #uri = URI(link_con)
+  #puts Net::HTTP.get(uri)
 
-  document = Nokogiri::HTML(open(url))
-  div_main = document.css('div.off-canvas-wrap')
-  div_main2 = div_main.css('section#ppalSeccionHome')
-  div_main3 = div_main2.css('div.row')
-  div_main4 = div_main3.css('div.small-12')
-  div_main5 = div_main4.css('article.article')
-  titulo = div_main5.css('h2.article-h').text
-  gif_url = div_main5.css('a.related-news-th img').attr('src')
-  File.open("#{titulo}.jpg", 'w') do |new_file|
-    puts "Descargando gif: #{titulo}"
-    open(gif_url, 'r') do |gif|
-      new_file.write(gif.read)
+  puts '------------------------'
+end
+=end
+url = 'http://www.planetatvonlinehd.com/'
+document = Nokogiri::HTML(open(url))
+div_main = document.css('main div.ed-item section.box')
+div_main.css('div.homelist').each do |post|
+  name = post.css('a').text
+  url_video = post.css('a').attr('href')
+  document = Nokogiri::HTML(open(url_video))
+  imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
+  body = document.css('section.container main.ed-item article.single section.single__content').css('p').text
+  sources = url
+  video = nil
+  document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
+    if item.css('div.content').to_s.include?('iframe')
+      video = item.css('div.content').css('iframe').attr('src')
+    else
+      
     end
   end
-  cuerpo = div_main5.css('p').text
-
-  puts titulo 
-  puts cuerpo  
+  
+  puts video
+  puts '*************************'
+end

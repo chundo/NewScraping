@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cover.name %>
+</p>
+
+<p>
+  <strong>Sumary:</strong>
+  <%= @cover.sumary %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @cover.image %>
+</p>
+
+<p>
+  <strong>Action url:</strong>
+  <%= @cover.action_url %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @cover.status %>
+</p>
+
+<%= link_to 'Edit', edit_cover_path(@cover) %> |
+<%= link_to 'Back', covers_path %>

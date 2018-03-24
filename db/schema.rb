@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307041105) do
+ActiveRecord::Schema.define(version: 20180321133113) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20180307041105) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_categorizations_on_category_id"
     t.index ["post_id"], name: "index_categorizations_on_post_id"
+  end
+
+  create_table "covers", force: :cascade do |t|
+    t.string "name"
+    t.string "sumary"
+    t.string "image"
+    t.string "action_url"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

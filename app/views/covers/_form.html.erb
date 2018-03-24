@@ -1,0 +1,42 @@
+<%= form_with(model: cover, local: true) do |form| %>
+  <% if cover.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cover.errors.count, "error") %> prohibited this cover from being saved:</h2>
+
+      <ul>
+      <% cover.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :cover_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sumary %>
+    <%= form.text_field :sumary, id: :cover_sumary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.text_field :image, id: :cover_image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :action_url %>
+    <%= form.text_field :action_url, id: :cover_action_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.check_box :status, id: :cover_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
