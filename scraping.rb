@@ -84,7 +84,7 @@ div_main.css('div.tray-item').each do |post|
 
   puts '------------------------'
 end
-=end
+
 url = 'http://www.planetatvonlinehd.com/'
 document = Nokogiri::HTML(open(url))
 div_main = document.css('main div.ed-item section.box')
@@ -100,10 +100,39 @@ div_main.css('div.homelist').each do |post|
     if item.css('div.content').to_s.include?('iframe')
       video = item.css('div.content').css('iframe').attr('src')
     else
-      
+        if item.css('div.content div.video').text.include?("loadopen")
+          codigo = item.css('div.content div.video').css('div.video').css('script').text.delete('loadopen').delete('("').delete('")')
+          video = "https://openload.co/embed/#{codigo.to_s}/"
+          puts video
+        else
+          codigo = item.css('div.content div.video').css('div.video').css('script').text.delete('mango').delete('("').delete('")')
+          video = "https://streamango.com/embed/#{codigo.to_s}/"
+          puts video
+        end
     end
   end
   
   puts video
   puts '*************************'
 end
+=end
+
+url = 'http://www.cliver.tv/'
+document = Nokogiri::HTML(open(url))
+div_main = document.css('div.contenedor div.int-cont section.panel-der')
+div_main.css('div.contenidos-p article.contenido-p').each do |post|
+  puts post.css('div.portada-p').css('a img')
+  puts '------------------------'
+  url_video = post.css('div.portada-p').css('a').attr('href')
+  puts post.css('div.portada-p').css('a').attr('href')
+  puts '------------------------'
+  puts post.css('div.titulo-p').css('a h2').text
+  puts '------------------------'
+  document = Nokogiri::HTML(open(url_video))
+  cont = document.css('div.int-cont section.peli-izq')
+  puts cont.css('div.contenedor-menu-pelicula div.ver-pelicula').css('div')
+
+  puts '************************'
+end
+
+

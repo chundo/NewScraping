@@ -1,0 +1,28 @@
+
+<!-- Slider
+============================================= -->
+<section id="slider" class="slider-element clearfix swiper_wrapper" style="background: #131722; height: 800px" data-effect="fade" data-loop="true" data-speed="1000">
+	<div class="swiper-container swiper-parent">
+		<div class="swiper-wrapper">
+			
+			<% @covers.each do |cover| %>
+			<div class="swiper-slide dark" style="background: url('<%= cover.image %>') no-repeat bottom center; background-size: cover">
+				<div class="container clearfix">
+					<div class="slider-caption">
+						<h2 class="font-primary nott"><%= cover.name %>.</h2>
+						<p class="d-none d-md-block"><%= cover.sumary %>.</p>
+						<a class="button button-rounded t400" href="<%= cover.action_url %>"><i class="icon-play"></i>Play</a>
+						<!--<a href="#" class="button d-none d-md-inline-block button-rounded" style="margin-top: 15px; background-color: #1f2330; padding: 0 16px;"><i class="icon-line-ribbon norightmargin"></i></a>
+						<a href="#" class="button d-none d-md-inline-block button-rounded" style="margin-top: 15px; background-color: #1f2330; padding: 0 16px;"><i class="icon-line-heart norightmargin"></i></a>
+						<a href="#" class="button d-none d-md-inline-block nobg t300 nott" style="margin-top: 15px; padding: 0 16px;"><i class="icon-line-share color"></i>Share</a>
+						<a href="#" class="button d-none d-md-inline-block nobg t300 nott noleftmargin" style="margin-top: 15px; padding: 0 16px;"><i class="icon-line-plus color"></i>Add</a>-->
+					</div>
+				</div>
+			</div>
+			<% end %>
+			
+		</div>
+		<div class="slider-arrow-left" class="nobg"><i class="icon-line-arrow-left"></i></div>
+		<div class="slider-arrow-right" class="nobg"><i class="icon-line-arrow-right"></i></div>
+	</div>
+</section>

@@ -8,26 +8,26 @@
 	<!-- Stylesheets
 	============================================= -->
 	<link href="http://fonts.googleapis.com/css?family=Poppins:200,300,400,400i,600,700|Montserrat:300,400,700|Caveat+Brush" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
-	<link rel="stylesheet" href="css/dark.css" type="text/css" />
-	<link rel="stylesheet" href="css/swiper.css" type="text/css" />
+	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="/style.css" type="text/css" />
+	<link rel="stylesheet" href="/css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="/css/swiper.css" type="text/css" />
 
 	<!-- Music Specific Stylesheet -->
 	<link rel="stylesheet" href="/music/music.css" type="text/css" />
 	<!-- / -->
 
-	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="/css/font-icons.css" type="text/css" />
 	<link rel="stylesheet" href="/et-line.css" type="text/css" />
-	<link rel="stylesheet" href="css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+	<link rel="stylesheet" href="/css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
 
 	<link rel="stylesheet" href="/music/css/fonts.css" type="text/css" />
 
 	<!-- Bootstrap Switch CSS -->
-	<link rel="stylesheet" href="css/components/bs-switches.css" type="text/css" />
+	<link rel="stylesheet" href="/css/components/bs-switches.css" type="text/css" />
 
-	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<link rel="stylesheet" href="/css/responsive.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lt IE 9]>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -58,136 +58,13 @@
 	<!-- Document Wrapper
 	============================================= -->
 	<div id="wrapper" class="clearfix" style="margin-bottom: 40px">
-
-		<!-- Header
-		============================================= -->
-		<header id="header" class="full-header transparent-header dark no-sticky">
-
-			<div id="header-wrap">
-
-				<div class="container clearfix">
-
-					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-					<!-- Logo
-					============================================= -->
-					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="/music/images/logo-dark.png"><img src="/music/images/logo.png" alt="Canvas Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="/music/images/logo-dark@2x.png"><img src="/music/images/logo@2x.png" alt="Canvas Logo"></a>
-					</div><!-- #logo end -->
-
-					<!-- Primary Navigation
-					============================================= -->
-					<nav id="primary-menu" class="clearfix not-dark">
-
-						<ul>
-							<li class="active"><a href="#"><div>Home</div></a></li>
-							<li><a href="#"><div>Musics</div></a>
-								<ul>
-									<li><a href="#"><div>Featured</div></a></li>
-									<li><a href="#"><div>New Arrivals</div></a></li>
-									<li><a href="#"><div>Old Popular</div></a></li>
-									<li><a href="#"><div>Top 90's</div></a></li>
-								</ul>
-							</li>
-							<li><a href="#"><div>About</div></a></li>
-							<li><a href="#"><div>Discover</div></a></li>
-							<li><a href="#"><div>Artists</div></a>
-								<ul>
-									<li><a href="#"><div>A-Z Artists</div></a></li>
-									<li><a href="#"><div>New Artists</div></a></li>
-									<li><a href="#"><div>Popular Artists</div></a></li>
-								</ul>
-							</li>
-							<li><a href="#"><div>Videos</div></a></li>
-							<li><a href="#"><div>Contact</div></a></li>
-						</ul>
-
-						<!-- Top Search
-						============================================= -->
-						<div id="top-search">
-							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="search.html" method="get">
-								<input type="text" name="q" class="form-control" value="" placeholder="Find your Music here....">
-							</form>
-						</div><!-- #top-search end -->
-
-					</nav><!-- #primary-menu end -->
-
-				</div>
-
-			</div>
-
-		</header><!-- #header end -->
-
+		<%= render 'layouts/render/header'%>
+		<% if action_name.eql?('index') %>
+			<%= render 'layouts/render/slider'%>
+		<% end %>		
 		<%= yield %>
 
-		<!-- Footer
-		============================================= -->
-		<footer id="footer" class="noborder dark" style="background-color: #111;">
-
-			<!-- Copyrights
-			============================================= -->
-			<div id="copyrights" style="color: #444;">
-
-				<div class="container clearfix">
-
-					<div class="col_half">
-						Copyrights &copy; 2017 All Rights Reserved by Canvas Inc.
-					</div>
-
-					<div class="col_half col_last">
-						<div class="fright clearfix">
-							<a href="#" class="social-icon si-small si-borderless si-facebook">
-								<i class="icon-facebook"></i>
-								<i class="icon-facebook"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-twitter">
-								<i class="icon-twitter"></i>
-								<i class="icon-twitter"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-gplus">
-								<i class="icon-gplus"></i>
-								<i class="icon-gplus"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-pinterest">
-								<i class="icon-pinterest"></i>
-								<i class="icon-pinterest"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-vimeo">
-								<i class="icon-vimeo"></i>
-								<i class="icon-vimeo"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-github">
-								<i class="icon-github"></i>
-								<i class="icon-github"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-yahoo">
-								<i class="icon-yahoo"></i>
-								<i class="icon-yahoo"></i>
-							</a>
-
-							<a href="#" class="social-icon si-small si-borderless si-linkedin">
-								<i class="icon-linkedin"></i>
-								<i class="icon-linkedin"></i>
-							</a>
-						</div>
-					</div>
-
-				</div>
-
-			</div><!-- #copyrights end -->
-
-		</footer><!-- #footer end -->
-
-		
-
+		<%= render 'layouts/render/footer'%>
 	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
@@ -196,11 +73,11 @@
 
 	<!-- External JavaScripts
 	============================================= -->
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.js"></script>
+	<script src="/js/jquery.js"></script>
+	<script src="/js/plugins.js"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>
+	<script src="/js/functions.js"></script>
 </body>
 </html>
