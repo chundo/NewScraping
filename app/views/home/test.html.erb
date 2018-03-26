@@ -1,7 +1,4 @@
-<% @post.methods - Object.methods %>
+<% @pos = '<div class="video"><script>loadopen("AD2gAaM8SvQ")</script></div>' %>
 
-<% if !@post.nil? %>
-    <h1>Existe</h1>
-<% else %>
-    <h1>No Existe</h1>
-<% end %>
+<%= @pos[37..-18] %>
+

@@ -1,11 +1,14 @@
 class HomeController < ApplicationController
   require 'nokogiri'
   require 'open-uri'
+  require 'graphql'
+
   before_action :covers_header
 
   def index
     @posts = Post.where(state: true)
     @covers = Cover.where(status: true).limit(5)
+    @post_tag = Post.where(state: true).limit(4)
   end
 
   def noticias
@@ -41,8 +44,8 @@ class HomeController < ApplicationController
         body_con = con2
         Post.create(name: name_con, url: link_con, image: img_con, body: 'pendiente', sources: 'pendiente', state: true )
       end
-    elsif params['url'] and params['url'].eql?('http://www.planetatvonlinehd.com/') #solo si url es igual a https://vepeliculas.tv/
-      url = 'http://www.planetatvonlinehd.com/'
+    elsif params['url'] and params['url'].include?('http://www.planetatvonlinehd.com/') #OK
+      url = params['url']#'http://www.planetatvonlinehd.com/'
       document = Nokogiri::HTML(open(url))
       div_main = document.css('main div.ed-item section.box')
       div_main.css('div.homelist').each do |post|
@@ -54,24 +57,23 @@ class HomeController < ApplicationController
         sources = url
         video = nil
         state = nil
+        @videos = Array.new 
         document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
           state = item.css('div.content').to_s.include?('iframe')
           if item.css('div.content').to_s.include?('iframe')
             video = item.css('div.content').css('iframe').attr('src')
+            @videos.insert({"url": video })
           else
-            if item.css('div.content div.video').text.include?("loadopenss")
+            if item.css('div.content div.video').text.include?("loadopen")
               state = item.css('div.content div.video').css('div.video').to_s.include?('script')
-              codigo = item.css('div.content div.video').css('div.video').css('script').text.delete('loadopen').delete('("').delete('")')
+              codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
+              puts item.css('div.content div.video').css('div.video').css('script')
               video = "https://openload.co/embed/#{codigo.to_s}/"
-            else
-              state = item.css('div.content div.video').css('div.video').to_s.include?('script')
-              codigo = item.css('div.content div.video').css('div.video').css('script').text.delete('mango').delete('("').delete('")')
-              video = "https://streamango.com/embed/#{codigo.to_s}/"
+              @videos.insert({"url": video })
             end
           end
-          
+          #video = '[{"url": "https://streamango.com/embed/rqfskrffrsss/"}, {"url": "https://streamango.com/embed/rqfskrffrsss/"}]'
          Post.create_scraping(name, link_con, state, imagen, body, video, sources)
-
         end
         puts '*************************'
       end

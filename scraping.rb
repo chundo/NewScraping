@@ -115,7 +115,7 @@ div_main.css('div.homelist').each do |post|
   puts video
   puts '*************************'
 end
-=end
+
 
 url = 'http://www.cliver.tv/'
 document = Nokogiri::HTML(open(url))
@@ -134,5 +134,22 @@ div_main.css('div.contenidos-p article.contenido-p').each do |post|
 
   puts '************************'
 end
+=end
 
 
+
+require 'graphql'
+
+QueryType = GraphQL::ObjectType.define do
+  name 'Query'
+  field :hello do
+    type types.String
+    resolve -> (obj, args, ctx) { 'Hello world!' }
+  end
+end
+
+Schema = GraphQL::Schema.define do
+  query QueryType
+end
+
+puts Schema.execute('{ hello }').to_json
