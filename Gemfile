@@ -7,6 +7,11 @@ end
 
 gem 'graphql'
 
+gem 'capistrano', '~> 3.7', '>= 3.7.1'
+gem 'capistrano-rails', '~> 1.2'
+gem 'capistrano-passenger', '~> 0.2.0'
+
+gem 'mysql2'
 
 gem 'rails_admin', '~> 1.3'
 gem 'nokogiri'
