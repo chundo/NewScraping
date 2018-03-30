@@ -71,7 +71,7 @@ class HomeController < ApplicationController
         link_con = post.css('a').attr('href')
         document = Nokogiri::HTML(open(link_con))
         imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
-        body = document.css('section.container main.ed-item article.single section.single__content').css('p').text
+        body = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
         sources = url
         video = nil
         state = nil
