@@ -1,10 +1,10 @@
 # config valid only for current version of Capistrano
-lock "3.9.1"
+lock "3.10.0"
 
 set :application, "NewScraping"
 set :repo_url, "git@github.com:chundo/NewScraping.git"
 
-set :deploy_to, '/home/idear/NewScraping'
+set :deploy_to, '/home/chundo/scraping'
 
 append :linked_files, "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
