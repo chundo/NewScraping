@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     @posts = Post.where(state: true).limit(60).order(created_at: :desc)
     @covers = Cover.where(status: true).limit(5).order(created_at: :desc)
     @post_tag = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 25.days, :dos => true).limit(4).order(views: :desc)
-    @posts_top = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 15.days, :dos => true).limit(10).order(views: :desc)
+    @posts_top = Post.all#where('created_at >= :uno and state == :dos', :uno  => Time.now - 15.days, :dos => true).limit(10).order(views: :desc)
   end
 
   def noticias
