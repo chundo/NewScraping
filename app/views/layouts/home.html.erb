@@ -36,6 +36,10 @@
 	<!-- Audio Player Plugin CSS -->
 	<link rel="stylesheet" href="/music/css/mediaelement/mediaelementplayer.css">
 
+	<% stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= csrf_meta_tags %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 	<!-- Document Title
 	============================================= -->
 	<title>Music Steaming | Canvas</title>

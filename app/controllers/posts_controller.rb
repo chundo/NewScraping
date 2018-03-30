@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    render '/home/noticia'
   end
 
   # GET /posts/new

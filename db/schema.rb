@@ -70,12 +70,10 @@ ActiveRecord::Schema.define(version: 20180329232035) do
     t.string "video"
     t.string "cover"
     t.boolean "state"
-    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
     t.integer "views"
-    t.index ["category_id"], name: "index_posts_on_category_id"
   end
 
   create_table "tags", force: :cascade do |t|
