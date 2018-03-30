@@ -117,7 +117,7 @@ div_main.css('div.homelist').each do |post|
   puts '*************************'
 end
 
-=end
+
 
 
 
@@ -154,3 +154,34 @@ div_main.css('div.contenidos-p article.contenido-p').each do |post|
   url = nil
   puts '************************'
 end
+
+
+
+
+
+
+
+
+
+
+
+url = 'http://tv-vip.com/film/Coco.mp4/'
+sub = ["so", "kt", "ku", "hs"]
+document = Nokogiri::HTML(open(url))
+div_main = document.css('body')
+name = url.gsub('http://tv-vip.com/film/', '').gsub('/', '')
+puts '------------------------'  
+sub.each do |sub|
+  puts "http://#{sub}.tv-vip.info/c/transcoder/#{name}/360-mp4/#{name}.mp4?tt=0&mm=0&bb=0"
+end
+puts '------------------------'
+
+=end
+
+
+url = 'http://tv-vip.com/section/accion/'
+document = Nokogiri::HTML(open(url))
+div_main = document.css('body')#.css('')
+puts div_main
+
+

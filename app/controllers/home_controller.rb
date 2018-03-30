@@ -7,14 +7,18 @@ class HomeController < ApplicationController
   before_action :covers_header
 
   def index
-    @posts = Post.where(state: true).limit(60)
-    @covers = Cover.where(status: true).limit(5)
+    @posts = Post.where(state: true).limit(60).order(created_at: :desc)
+    @covers = Cover.where(status: true).limit(5).order(created_at: :desc)
     @post_tag = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 25.days, :dos => true).limit(4).order(views: :desc)
     @posts_top = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 15.days, :dos => true).limit(10).order(views: :desc)
   end
 
   def noticias
-    @posts = Post.where(state: true).limit(60)
+    if params[:page]
+      @posts = Post.where(state: true).order(created_at: :desc).page(params[:page]).per(60)
+    else
+      @posts = Post.where(state: true).order(created_at: :desc).page(1).per(60)
+    end
   end
 
   def noticia
@@ -28,12 +32,12 @@ class HomeController < ApplicationController
   end
 
   def buscar
-    @posts = Post.where("name LIKE ?", "%#{params[:q]}%")
+    @posts = Post.where("name LIKE ?", "%#{params[:q]}%").order(created_at: :desc)
     render 'buscar'
   end
 
   def videos
-    @posts = Post.where("name LIKE ? or body LIKE ? ", "%#{params[:id]}%", "%#{params[:id]}%")
+    @posts = Post.where("name LIKE ? or body LIKE ? ", "%#{params[:id]}%", "%#{params[:id]}%").order(created_at: :desc)
     render 'buscar'
   end
 
@@ -91,9 +95,9 @@ class HomeController < ApplicationController
         end
         puts '*************************'
       end
-    elsif params['url'] and params['url'].eql?('http://www.cliver.tv/') #solo si url es igual a https://vepeliculas.tv/
+    elsif params['url'] and params['url'].include?('http://www.cliver.tv/') #solo si url es igual a https://vepeliculas.tv/
       
-      url = 'http://www.cliver.tv/'
+      url =  params['url']
       document = Nokogiri::HTML(open(url))
       div_main = document.css('div.contenedor div.int-cont section.panel-der')
       div_main.css('div.contenidos-p article.contenido-p').each do |post|

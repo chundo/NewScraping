@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   friendly_id :name, use: :slugged
 
   self.paginates_per  60
-  self.total_pages  50
+  
 
   def self.create_scraping(name, link_con, state, imagen, body, video, sources)
     post = Post.find_by(url: link_con.to_s)

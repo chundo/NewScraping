@@ -54,9 +54,20 @@
 			
 		</div>
 		
-	</div>
-
+    </div>
+    
+    <center>
+        <h1>
+            <div class="content-wrap nopadding">
+                <%= link_to_prev_page @posts, 'Atraz' %>
+                <%= page_entries_info @posts, entry_name: 'videos' %>
+                
+                
+                
+                <%= link_to_next_page @posts, 'Siguiente' %>
+                
+            </div>
+        </h1>
+    </center>
+    
 </section><!-- #content end -->
-
-
-<%= paginate @posts %>
