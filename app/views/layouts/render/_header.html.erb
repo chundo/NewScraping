@@ -22,35 +22,19 @@
 					<nav id="primary-menu" class="clearfix not-dark">
 
 						<ul>
-							<li class="active"><a href="#"><div>Home</div></a></li>
-							<li><a href="#"><div>Musics</div></a>
-								<ul>
-									<li><a href="#"><div>Featured</div></a></li>
-									<li><a href="#"><div>New Arrivals</div></a></li>
-									<li><a href="#"><div>Old Popular</div></a></li>
-									<li><a href="#"><div>Top 90's</div></a></li>
-								</ul>
-							</li>
-							<li><a href="#"><div>About</div></a></li>
-							<li><a href="#"><div>Discover</div></a></li>
-							<li><a href="#"><div>Artists</div></a>
-								<ul>
-									<li><a href="#"><div>A-Z Artists</div></a></li>
-									<li><a href="#"><div>New Artists</div></a></li>
-									<li><a href="#"><div>Popular Artists</div></a></li>
-								</ul>
-							</li>
-							<li><a href="#"><div>Videos</div></a></li>
-							<li><a href="#"><div>Contact</div></a></li>
+							<li class="active"><a href="/"><div>Home</div></a></li>
+							<li class="active"><a href="/videos"><div>Videos</div></a></li>
 						</ul>
 
 						<!-- Top Search
 						============================================= -->
 						<div id="top-search">
 							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="search.html" method="get">
-								<input type="text" name="q" class="form-control" value="" placeholder="Find your Music here....">
-							</form>
+							<%= form_tag(buscar_path, :class => 'col-12') do %>
+								<%= text_field_tag :q, nil, :class => 'form-control', :placeholder => "Que pelicula o serie estas buscando ..." %>	
+							<% end %>
+							
+							
 						</div><!-- #top-search end -->
 
 					</nav><!-- #primary-menu end -->

@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'date'
 require 'net/http'
-
+require 'json'
 
 
 
@@ -58,6 +58,7 @@ puts div_inmain
 puts '------------------------------------------'
 =end
 #https://www.elmanana.com
+
 
 
 ##SCRAPING LINK SEMANA https://vepeliculas.tv/
@@ -116,6 +117,16 @@ div_main.css('div.homelist').each do |post|
   puts '*************************'
 end
 
+=end
+
+
+
+
+#auteur = "comte de Flandre et Hainaut, Baudouin, Jacques, Thierry"
+#auteur = '{"es": "https://openload.co/embed/70iw8Ftq4pw/M.4.Z.3%2FR.U.N.N.3.R%2F3%2FT.H.3%2FD.3.4.T.H%2FC.U.R.3.mp4", "es_la": "https://openload.co/embed/MHB_8RoMtwY/M.4.Z.3%2FR.U.N.N.3.R%2F3%2FT.H.3%2FD.3.4.T.H%2FC.U.R.3.mp4", "vose": "https://openload.co/embed/LwAU9PityOk/M.4.Z.3%2FR.U.N.N.3.R%2F3%2FT.H.3%2FD.3.4.T.H%2FC.U.R.3.mp4", "en": "" } = "http://www.cliver.tv/img/peliculas/portadas/2789_80975.jpg" = "2789";'
+#nom = auteur.gsub(/.*}/, '')
+#puts nom
+
 
 url = 'http://www.cliver.tv/'
 document = Nokogiri::HTML(open(url))
@@ -123,33 +134,23 @@ div_main = document.css('div.contenedor div.int-cont section.panel-der')
 div_main.css('div.contenidos-p article.contenido-p').each do |post|
   puts post.css('div.portada-p').css('a img')
   puts '------------------------'
-  url_video = post.css('div.portada-p').css('a').attr('href')
   puts post.css('div.portada-p').css('a').attr('href')
   puts '------------------------'
   puts post.css('div.titulo-p').css('a h2').text
   puts '------------------------'
-  document = Nokogiri::HTML(open(url_video))
-  cont = document.css('div.int-cont section.peli-izq')
-  puts cont.css('div.contenedor-menu-pelicula div.ver-pelicula').css('div')
-
+  url = post.css('div.portada-p').css('a').attr('href')
+  document = Nokogiri::HTML(open(url))
+  cont = document.css('script')#css('div.contenedor div.int-cont section.peli-izq').xpath('uVXUkRb4GQ')
+  contador = 0
+  cont.each do |script|
+    if script.to_s.include?('openload') && contador == 0
+      object = script.text.to_s.gsub(/.*var urlVideos = /, '').partition(";")[0]
+      videos = JSON.parse(object.to_s)
+      puts !videos['es'].eql?('') ? "SI ES #{videos['es']}" : !videos['es_la'].eql?('') ? "SI ES_LA #{videos['es_la']}" : "SI VOSE #{videos['vose']}"
+      contador = +1
+    end
+  end  
+  #sleep 1
+  url = nil
   puts '************************'
 end
-=end
-
-
-
-require 'graphql'
-
-QueryType = GraphQL::ObjectType.define do
-  name 'Query'
-  field :hello do
-    type types.String
-    resolve -> (obj, args, ctx) { 'Hello world!' }
-  end
-end
-
-Schema = GraphQL::Schema.define do
-  query QueryType
-end
-
-puts Schema.execute('{ hello }').to_json

@@ -2,25 +2,39 @@ class HomeController < ApplicationController
   require 'nokogiri'
   require 'open-uri'
   require 'graphql'
+  require 'json'
 
   before_action :covers_header
 
   def index
-    @posts = Post.where(state: true)
+    @posts = Post.where(state: true).limit(60)
     @covers = Cover.where(status: true).limit(5)
-    @post_tag = Post.where(state: true).limit(4)
+    @post_tag = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 25.days, :dos => true).limit(4).order(views: :desc)
+    @posts_top = Post.where('created_at >= :uno and state == :dos', :uno  => Time.now - 15.days, :dos => true).limit(10).order(views: :desc)
   end
 
   def noticias
-    @posts = Post.where(state: true)
+    @posts = Post.where(state: true).limit(60)
   end
 
   def noticia
+    response.set_header('HEADER NAME', 'HEADER VALUE')
     @post =  Post.friendly.find(params[:id])    
+    @post.update(views: @post.views + 1)
   end
 
   def categoria 
     @category =  Category.friendly.find(params[:id])
+  end
+
+  def buscar
+    @posts = Post.where("name LIKE ?", "%#{params[:q]}%")
+    render 'buscar'
+  end
+
+  def videos
+    @posts = Post.where("name LIKE ? or body LIKE ? ", "%#{params[:id]}%", "%#{params[:id]}%")
+    render 'buscar'
   end
 
   def scraping
@@ -57,19 +71,19 @@ class HomeController < ApplicationController
         sources = url
         video = nil
         state = nil
-        @videos = Array.new 
+        #@videos = Array.new 
         document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
-          state = item.css('div.content').to_s.include?('iframe')
+          state = item.css('div.content').to_s.include?('iframe') and !imagen.nil?
           if item.css('div.content').to_s.include?('iframe')
             video = item.css('div.content').css('iframe').attr('src')
-            @videos.insert({"url": video })
+            #@videos.insert({"url": video })
           else
             if item.css('div.content div.video').text.include?("loadopen")
-              state = item.css('div.content div.video').css('div.video').to_s.include?('script')
+              state = item.css('div.content div.video').css('div.video').to_s.include?('script') and !imagen.nil?
               codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
               puts item.css('div.content div.video').css('div.video').css('script')
               video = "https://openload.co/embed/#{codigo.to_s}/"
-              @videos.insert({"url": video })
+              #@videos.insert({"url": video })
             end
           end
           #video = '[{"url": "https://streamango.com/embed/rqfskrffrsss/"}, {"url": "https://streamango.com/embed/rqfskrffrsss/"}]'
@@ -78,12 +92,44 @@ class HomeController < ApplicationController
         puts '*************************'
       end
     elsif params['url'] and params['url'].eql?('http://www.cliver.tv/') #solo si url es igual a https://vepeliculas.tv/
+      
+      url = 'http://www.cliver.tv/'
+      document = Nokogiri::HTML(open(url))
+      div_main = document.css('div.contenedor div.int-cont section.panel-der')
+      div_main.css('div.contenidos-p article.contenido-p').each do |post|
+        imagen = post.css('div.portada-p').css('a img').attr('src')
+        puts '------------------------'
+        link_con = post.css('div.portada-p').css('a').attr('href')
+        puts '------------------------'
+        name = post.css('div.titulo-p').css('a h2').text
+        puts '------------------------'
+        url = post.css('div.portada-p').css('a').attr('href')
+        document = Nokogiri::HTML(open(url))
+        cont = document.css('script')#css('div.contenedor div.int-cont section.peli-izq').xpath('uVXUkRb4GQ')
+        contador = 0
+        sources = url
+        video = nil
+        body = 'sssss'
+        cont.each do |script|
+          if script.to_s.include?('openload') && contador == 0
+            object = script.text.to_s.gsub(/.*var urlVideos = /, '').partition(";")[0]
+            videos = JSON.parse(object.to_s)
+            video = !videos['es'].eql?('') ? videos['es'] : !videos['es_la'].eql?('') ? videos['es_la'] : videos['vose']
+            contador = +1
+          end
+        end  
+        state = !video.nil? and !imagen.nil?
+        
+        Post.create_scraping(name, link_con, state, imagen, body, video, sources)
+        url = nil
+        puts '************************'
+      end
 
     end
   end
 
   def test
-    @post = Post.find_by(url: 'http://www.planetatvonlinehd.com/dragon-ball-super-capitulo-130/')
+    @post = Post.find_by(url: '')
   end
 
   private

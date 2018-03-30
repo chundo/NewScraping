@@ -7,6 +7,9 @@ class Post < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  self.paginates_per  60
+  self.total_pages  50
+
   def self.create_scraping(name, link_con, state, imagen, body, video, sources)
     post = Post.find_by(url: link_con.to_s)
     if !post.nil?
@@ -26,4 +29,10 @@ class Post < ApplicationRecord
       post = nil
     end   
   end
+
+  before_save :default_values
+  def default_values
+    self.views ||= 0 # note self.status = 'P' if self.status.nil? might be safer (per @frontendbeauty)
+  end
+
 end

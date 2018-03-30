@@ -3,15 +3,38 @@
     <div class="container clearfix">                
         <div class="divcenter topmargin-lg" style="max-width: 800px;">
             <center><h1 style="color: white;"><%= @post.name %></h1></center>
+            <% if @post.url.include?('http://www.cliver.tv') %>
+                <p id="p1" hidden><%= @post.video %></p>
+                <center><button onclick="copyToClipboard('#p1')" class="button button-rounded t400 ls1 track-list clearfix">Si no pueder ver el contenido copia el link</button><center>
+            <% end %>
+            
             <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;">
-                <iframe frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" src="<%= @post.video %>"> &lt;video width="100%" height="100%" autoplay src="<%= @post.video %>"></iframe>
+                <iframe frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" src="<%= @post.video %>"> width="100%" height="100%" autoplay src="<%= @post.video %>"></iframe>
             </div>
-            <!--<p class="small muted" style="margin-top: 10px; color: #999;"><em>(Turn On Volume and switch to Full Screen for Best Experience)</em></p>-->
-            <p class="muted" style="margin-top: 10px; color: #999;"><%= @post.body %></p>
         </div>    
+        <center><p class="muted" style="margin-top: 10px; color: #999;"><%= @post.body %></p></center>
     </div>
+    
             
 </div>
 
-
-<!-- JSON.parse("#{@post.video}").each do |video| video['url'] end -->
+<script>
+    function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+</script>
+<!--
+<input type="text" value="<%= @post.video[0..37] %>" id="myInput">
+<button onclick="myFunction()">Copy text</button>
+<script>
+    function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        document.execCommand("Copy");
+    }
+</script>
+-->
