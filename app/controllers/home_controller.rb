@@ -43,10 +43,6 @@ class HomeController < ApplicationController
 
   def scraping
     
-    if params['url']
-      puts 'Url a hacer scraping'
-    end
-    
     if params['url'] and params['url'].eql?('https://vepeliculas.tv/') #solo si url es igual a https://vepeliculas.tv/
       url = 'https://vepeliculas.tv/'
       document = Nokogiri::HTML(open(url))
@@ -71,7 +67,7 @@ class HomeController < ApplicationController
         link_con = post.css('a').attr('href')
         document = Nokogiri::HTML(open(link_con))
         imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
-        body = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
+        body = ''#document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
         sources = url
         video = nil
         state = nil
@@ -102,18 +98,15 @@ class HomeController < ApplicationController
       div_main = document.css('div.contenedor div.int-cont section.panel-der')
       div_main.css('div.contenidos-p article.contenido-p').each do |post|
         imagen = post.css('div.portada-p').css('a img').attr('src')
-        puts '------------------------'
         link_con = post.css('div.portada-p').css('a').attr('href')
-        puts '------------------------'
         name = post.css('div.titulo-p').css('a h2').text
-        puts '------------------------'
         url = post.css('div.portada-p').css('a').attr('href')
         document = Nokogiri::HTML(open(url))
         cont = document.css('script')#css('div.contenedor div.int-cont section.peli-izq').xpath('uVXUkRb4GQ')
         contador = 0
         sources = url
         video = nil
-        body = 'sssss'
+        body = ''
         cont.each do |script|
           if script.to_s.include?('openload') && contador == 0
             object = script.text.to_s.gsub(/.*var urlVideos = /, '').partition(";")[0]

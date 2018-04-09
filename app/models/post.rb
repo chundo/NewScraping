@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  body       :text
+#  image      :string
+#  url        :string
+#  sources    :string
+#  video      :string
+#  cover      :string
+#  state      :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  slug       :string
+#  views      :integer
+#
+
 class Post < ApplicationRecord
   has_many :categorizations
   has_many :categories, through: :categorizations
