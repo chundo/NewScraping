@@ -82,7 +82,7 @@ class HomeController < ApplicationController
       document = Nokogiri::HTML(open(link_con))
       imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
       body2 = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
-      body = body2.to_s
+      body = 'sss'#body2.to_s
       sources = url
       video = nil
       state = nil
