@@ -43,56 +43,7 @@ class HomeController < ApplicationController
 
   def scraping
     
-    if params['url'] and params['url'].eql?('https://vepeliculas.tv/') #solo si url es igual a https://vepeliculas.tv/
-      url = 'https://vepeliculas.tv/'
-      document = Nokogiri::HTML(open(url))
-      div_main = document.css('div.tray-content')
-      div_main.css('div.tray-item').each do |post|
-        contect = post.css('div.tray-item-content')
-        link_con = post.css('div.tray-item-content').css('a').attr('href')
-        imagen = post.css('div.tray-item-content').css('img').attr('src')
-        name = post.css('div.tray-item-content').css('div.tray-item-description').css('div.tray-item-title').css('a').text
-        con2 = post.css('div.tray-item-content').css('div.tray-item-play').css('a').attr('data-content')
-        video = Nokogiri::HTML(open(link_con))
-        category_con = con2
-        body_con = con2
-        Post.create(name: name_con, url: link_con, image: img_con, body: 'pendiente', sources: 'pendiente', state: true )
-      end
-    elsif params['url'] and params['url'].include?('http://www.planetatvonlinehd.com/') #OK
-      url = params['url']#'http://www.planetatvonlinehd.com/'
-      document = Nokogiri::HTML(open(url))
-      div_main = document.css('main div.ed-item section.box')
-      div_main.css('div.homelist').each do |post|
-        name = post.css('a').text
-        link_con = post.css('a').attr('href')
-        document = Nokogiri::HTML(open(link_con))
-        imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
-        body = ''#document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
-        sources = url
-        video = nil
-        state = nil
-        #@videos = Array.new 
-        document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
-          state = item.css('div.content').to_s.include?('iframe') and !imagen.nil?
-          if item.css('div.content').to_s.include?('iframe')
-            video = item.css('div.content').css('iframe').attr('src')
-            #@videos.insert({"url": video })
-          else
-            if item.css('div.content div.video').text.include?("loadopen")
-              state = item.css('div.content div.video').css('div.video').to_s.include?('script') and !imagen.nil?
-              codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
-              puts item.css('div.content div.video').css('div.video').css('script')
-              video = "https://openload.co/embed/#{codigo.to_s}/"
-              #@videos.insert({"url": video })
-            end
-          end
-          #video = '[{"url": "https://streamango.com/embed/rqfskrffrsss/"}, {"url": "https://streamango.com/embed/rqfskrffrsss/"}]'
-         Post.create_scraping(name, link_con, state, imagen, body, video, sources)
-        end
-        puts '*************************'
-      end
-    elsif params['url'] and params['url'].include?('http://www.cliver.tv/') #solo si url es igual a https://vepeliculas.tv/
-      
+    if params['url'] and params['url'].include?('http://www.cliver.tv') #solo si url es igual a https://vepeliculas.tv/
       url =  params['url']
       document = Nokogiri::HTML(open(url))
       div_main = document.css('div.contenedor div.int-cont section.panel-der')
@@ -106,7 +57,7 @@ class HomeController < ApplicationController
         contador = 0
         sources = url
         video = nil
-        body = ''
+        body = document.css('div.contenedor div.int-cont section.peli-izq div.descripcion-pelicula p')[1].to_s.gsub('</p>', '').gsub('<p>', '') 
         cont.each do |script|
           if script.to_s.include?('openload') && contador == 0
             object = script.text.to_s.gsub(/.*var urlVideos = /, '').partition(";")[0]
@@ -121,8 +72,41 @@ class HomeController < ApplicationController
         url = nil
         puts '************************'
       end
-
+    elsif params['url'] and params['url'].include?('http://www.planetatvonlinehd.com') #OK 
+      url = params['url']
+      document = Nokogiri::HTML(open(url))
+      div_main = document.css('main div.ed-item section.box')
+      div_main.css('div.homelist').each do |post|
+      name = post.css('a').text
+      link_con = post.css('a').attr('href')
+      document = Nokogiri::HTML(open(link_con))
+      imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
+      body2 = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
+      body = body2.to_s
+      sources = url
+      video = nil
+      state = nil
+      #@videos = Array.new 
+      document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
+          state = item.css('div.content').to_s.include?('iframe') and !imagen.nil?
+          if item.css('div.content').to_s.include?('iframe')
+          video = item.css('div.content').css('iframe').attr('src')
+          #@videos.insert({"url": video })
+          else
+            if item.css('div.content div.video').text.include?("loadopen")
+                state = item.css('div.content div.video').css('div.video').to_s.include?('script') and !imagen.nil?
+                codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
+                #puts item.css('div.content div.video').css('div.video').css('script')
+                video = "https://openload.co/embed/#{codigo.to_s}/"
+            end
+            state = !video.nil? and !imagen.nil?
+          end
+          Post.create_scraping(name, link_con, state, imagen, body, video, sources)
+      end  
+        puts '************************'
+      end
     end
+
   end
 
   def test

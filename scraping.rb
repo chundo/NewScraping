@@ -176,12 +176,110 @@ sub.each do |sub|
 end
 puts '------------------------'
 
+
+
+
+
+
+
+
+
+      url = 'http://www.cliver.tv'
+      document = Nokogiri::HTML(open(url))
+      div_main = document.css('div.contenedor div.int-cont section.panel-der')
+      div_main.css('div.contenidos-p article.contenido-p').each do |post|
+        imagen = post.css('div.portada-p').css('a img').attr('src')
+        link_con = post.css('div.portada-p').css('a').attr('href')
+        name = post.css('div.titulo-p').css('a h2').text
+        url = post.css('div.portada-p').css('a').attr('href')
+        document = Nokogiri::HTML(open(url))
+        cont = document.css('script')#css('div.contenedor div.int-cont section.peli-izq').xpath('uVXUkRb4GQ')
+        contador = 0
+        sources = url
+        video = nil
+        body = document.css('div.contenedor div.int-cont section.peli-izq div.descripcion-pelicula p')[1].to_s.gsub('</p>', '').gsub('<p>', '')
+        cont.each do |script|
+          if script.to_s.include?('openload') && contador == 0
+            object = script.text.to_s.gsub(/.*var urlVideos = /, '').partition(";")[0]
+            videos = JSON.parse(object.to_s)
+            video = !videos['es'].eql?('') ? videos['es'] : !videos['es_la'].eql?('') ? videos['es_la'] : videos['vose']
+            contador = +1
+          end
+        end  
+        state = !video.nil? and !imagen.nil?        
+        url = nil
+
+      
+        puts "+++++++++++++++++++++++"
+        puts "name: " + name 
+        puts "body: " + body.to_s
+        puts "image: " + imagen
+        puts "url: " + link_con
+        puts "sources: " + sources
+        puts "video: " + video
+        puts "state: #{state}"        
+        puts '************************'
+      end
+
+
+
+
 =end
 
+#  id         :integer          not null, primary key
+#  name       :string
+#  body       :text
+#  image      :string
+#  url        :string
+#  sources    :string
+#  video      :string
+#  cover      :string
+#  state      :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  slug       :string
+#  views      :integer
+#Post.create(name: name, url: link_con, image: imagen, body: body, sources: sources, state: state, video: video )
 
-url = 'http://tv-vip.com/section/accion/'
-document = Nokogiri::HTML(open(url))
-div_main = document.css('body')#.css('')
-puts div_main
 
-
+    url = 'http://www.planetatvonlinehd.com'
+    document = Nokogiri::HTML(open(url))
+    div_main = document.css('main div.ed-item section.box')
+    div_main.css('div.homelist').each do |post|
+    name = post.css('a').text
+    link_con = post.css('a').attr('href')
+    document = Nokogiri::HTML(open(link_con))
+    imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
+    body = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
+    sources = url
+    video = nil
+    state = nil
+    #@videos = Array.new 
+    document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
+        state = item.css('div.content').to_s.include?('iframe') and !imagen.nil?
+        if item.css('div.content').to_s.include?('iframe')
+        video = item.css('div.content').css('iframe').attr('src')
+        #@videos.insert({"url": video })
+        else
+          if item.css('div.content div.video').text.include?("loadopen")
+              state = item.css('div.content div.video').css('div.video').to_s.include?('script') and !imagen.nil?
+              codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
+              puts item.css('div.content div.video').css('div.video').css('script')
+              video = "https://openload.co/embed/#{codigo.to_s}/"
+              #@videos.insert({"url": video })
+          end
+          state = !video.nil? and !imagen.nil?
+        end
+        #video = '[{"url": "https://streamango.com/embed/rqfskrffrsss/"}, {"url": "https://streamango.com/embed/rqfskrffrsss/"}]'
+        Post.create_scraping(name, link_con, state, imagen, body, video, sources)
+    end
+        puts "+++++++++++++++++++++++"
+        puts "name: " + name 
+        puts "body: " + body.to_s
+        puts "image: " + imagen
+        puts "url: " + link_con
+        puts "sources: " + sources
+        puts "video: " + video.to_s
+        puts "state: #{state}"        
+        puts '************************'
+    end
