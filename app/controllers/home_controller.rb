@@ -55,7 +55,7 @@ class HomeController < ApplicationController
         document = Nokogiri::HTML(open(url))
         cont = document.css('script')#css('div.contenedor div.int-cont section.peli-izq').xpath('uVXUkRb4GQ')
         contador = 0
-        sources = url
+        sources = 'cliver.tv'#url
         video = nil
         body = document.css('div.contenedor div.int-cont section.peli-izq div.descripcion-pelicula p')[1].to_s.gsub('</p>', '').gsub('<p>', '') 
         cont.each do |script|
@@ -83,7 +83,7 @@ class HomeController < ApplicationController
       imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
       body2 = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
       body = body2.to_s.gsub('\n', '').gsub('📌', '').gsub('❗️', '')
-      sources = url
+      sources = 'planetatvonlinehd'#url
       video = nil
       state = nil
       #@videos = Array.new 

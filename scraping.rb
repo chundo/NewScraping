@@ -242,44 +242,24 @@ puts '------------------------'
 #Post.create(name: name, url: link_con, image: imagen, body: body, sources: sources, state: state, video: video )
 
 
-    url = 'http://www.planetatvonlinehd.com'
-    document = Nokogiri::HTML(open(url))
-    div_main = document.css('main div.ed-item section.box')
-    div_main.css('div.homelist').each do |post|
-    name = post.css('a').text
-    link_con = post.css('a').attr('href')
-    document = Nokogiri::HTML(open(link_con))
-    imagen = document.css('section.container main.ed-item article.single section.single__content').css('img').attr('src')
-    body = document.css('section.container main.ed-item article.single section.single__content').css('p').text.to_s
-    sources = url
-    video = nil
-    state = nil
-    #@videos = Array.new 
-    document.css('section.container main.ed-item article.single section.single__content div.tabs div.tab').each do |item|
-        state = item.css('div.content').to_s.include?('iframe') and !imagen.nil?
-        if item.css('div.content').to_s.include?('iframe')
-        video = item.css('div.content').css('iframe').attr('src')
-        #@videos.insert({"url": video })
-        else
-          if item.css('div.content div.video').text.include?("loadopen")
-              state = item.css('div.content div.video').css('div.video').to_s.include?('script') and !imagen.nil?
-              codigo = item.css('div.content div.video').css('div.video').to_s[38..-19]#.css('script').text.delete('loadopen')#.delete('(').delete(')').delete('"').delete('"')
-              puts item.css('div.content div.video').css('div.video').css('script')
-              video = "https://openload.co/embed/#{codigo.to_s}/"
-              #@videos.insert({"url": video })
-          end
-          state = !video.nil? and !imagen.nil?
-        end
-        #video = '[{"url": "https://streamango.com/embed/rqfskrffrsss/"}, {"url": "https://streamango.com/embed/rqfskrffrsss/"}]'
-        Post.create_scraping(name, link_con, state, imagen, body, video, sources)
-    end
-        puts "+++++++++++++++++++++++"
-        puts "name: " + name 
-        puts "body: " + body.to_s
-        puts "image: " + imagen
-        puts "url: " + link_con
-        puts "sources: " + sources
-        puts "video: " + video.to_s
-        puts "state: #{state}"        
-        puts '************************'
-    end
+
+url = 'https://vepeliculas.tv/film.html'
+document = Nokogiri::HTML(open(url))
+div_main = document.css('div.tray-content')
+  div_main.css('div.tray-item').each do |post|
+  contect = post.css('div.tray-item-content')
+  link_con = post.css('div.tray-item-content').css('a').attr('href')
+  imagen = post.css('div.tray-item-content').css('img').attr('src')
+  name = post.css('div.tray-item-content').css('div.tray-item-description').css('div.tray-item-title').css('a').text
+  con2 = post.css('div.tray-item-content').css('div.tray-item-play').css('a').attr('data-content')
+  document_v = Nokogiri::HTML(open(link_con))
+  video = document_v.css('div.content section.film-wrapper div.film-container div.player-container').text
+  document_v.css('script').each do |ss|
+    puts ss
+  end
+  category_con = con2
+  body = con2
+  puts "+++++++++++++++++++++++"
+  puts "video: " + video
+  puts '************************'
+end
