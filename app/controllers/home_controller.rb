@@ -22,9 +22,9 @@ class HomeController < ApplicationController
   end
 
   def noticia
-    response.set_header('HEADER NAME', 'HEADER VALUE')
     @post =  Post.friendly.find(params[:id])    
     @post.update(views: @post.views + 1)
+    @posts = Post.where(state: true).order(created_at: :desc).page(1).per(60)
   end
 
   def categoria 
@@ -32,7 +32,8 @@ class HomeController < ApplicationController
   end
 
   def buscar
-    @posts = Post.where("name LIKE ?", "%#{params[:q]}%").order(created_at: :desc)
+    #@posts = Post.where("name LIKE ?", "%#{params[:q]}%").order(created_at: :desc)
+    @posts = Post.where("name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q].downcase}%", "%#{params[:q].downcase}%", "%#{params[:q].titleize}%", "%#{params[:q].titleize}%", "%#{params[:q].capitalize}%", "%#{params[:q].capitalize}%" ).order(created_at: :desc)
     render 'buscar'
   end
 

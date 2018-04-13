@@ -3,7 +3,7 @@
 <head>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="author" content="SemiColonWeb" />
+	<meta name="author" content="Peliculas28" />
 
 	<!-- Stylesheets
 	============================================= -->
@@ -38,11 +38,11 @@
 
 	<% stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 	<%= csrf_meta_tags %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 	<!-- Document Title
 	============================================= -->
-	<title>Music Steaming | Canvas</title>
+	<title>Peliculas28 | Peliculas en estrenos | Series | Scraping</title>
 
 	<style>
 		@media (max-width: 479px) {
@@ -61,7 +61,7 @@
 
 	<!-- Document Wrapper
 	============================================= -->
-	<div id="wrapper" class="clearfix" style="margin-bottom: 40px">
+	<div id="wrapper" class="clearfix" style="margin-bottom: 0px">
 		<%= render 'layouts/render/header'%>
 		<% if action_name.eql?('index') %>
 			<%= render 'layouts/render/slider'%>

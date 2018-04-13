@@ -10,6 +10,10 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    #@posts = Post.where(state: true).order(created_at: :desc).page(1).per(6)
+    @posts = Post.where("name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ?", "%#{@post.name[0..6]}%", "%#{@post.name[0..6]}%", "%#{@post.name.downcase[0..6]}%", "%#{@post.name.downcase[0..6]}%", "%#{@post.name.titleize[0..6]}%", "%#{@post.name.titleize[0..6]}%", "%#{@post.name.capitalize[0..6]}%", "%#{@post.name.capitalize[0..6]}%" ).order(name: :desc).limit(6)
+    con = 6 - 1
+    @post_o = Post.where("name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ?", "%#{@posts.last.name[0..6]}%", "%#{@posts.last.name[0..6]}%", "%#{@posts.last.name.downcase[0..6]}%", "%#{@posts.last.name.downcase[0..6]}%", "%#{@posts.last.name.titleize[0..6]}%", "%#{@posts.last.name.titleize[0..6]}%", "%#{@posts.last.name.capitalize[0..6]}%", "%#{@posts.last.name.capitalize[0..6]}%" ).order(name: :desc).limit(con)
     render '/home/noticia'
   end
 

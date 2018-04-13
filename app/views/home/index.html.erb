@@ -7,8 +7,8 @@
 
 		<div class="container clearfix" style="z-index: 7;">
 			<div class="heading-block bottommargin-sm noborder dark" style="margin-top: -30px">
-				<h3>Series y Peliculas Mas vistas</h3>
-				<span>Las mejores series, peliculas y documentales del mundo del cine en una sola parte.</span>
+				<h3>Más vistas</h3>
+				<span>Las mejores series, películas y documentales del mundo del cine en una sola parte.</span>
 			</div>
 
 			<!-- Carousel
@@ -32,7 +32,7 @@
 								</div>
 							</div>
 							<div class="on-hover">
-								<%= link_to video_path(post), class: 'play-icon track-list', 'data-title'=>"Maq Amor", 'data-singer'=>"The Universe" do %>
+								<%= link_to video_path(post), class: 'play-icon track-list', 'data-title'=>"#{post.name}", 'data-singer'=>"#{post.name}" do %>
 									<i class="icon-play"></i>
 								<% end %>
 							</div>
@@ -47,7 +47,7 @@
 			<div class="tabs tabs-bb tabs-music-demo customjs tabs-responsive dark topmargin-lg clearfix" id="album-tab" data-accordion-style="accordion-bg">
 
 				<ul class="tab-nav nobottomborder clearfix">
-					<li><a href="#tabs-1">Mas poular</a></li>
+					<li><a href="#tabs-1">Más poular</a></li>
 					<!--<li><a href="#tabs-2">Recommended</a></li>
 					<li><a href="#tabs-3">Popular</a></li>
 					<li><a href="#tabs-4">Latest</a></li>-->
@@ -167,7 +167,7 @@
 			============================================= -->
 			<div class="heading-block bottommargin-sm topmargin noborder dark">
 				<h3>Todo en un solo sitio</h3>
-				<span>Ultimas series y peliculas publicadas en un solo sitio. capitulos y temporadasas.</span>
+				<span>Ultimas series y películas publicadas en un solo sitio. capítulos y temporadas.</span>
 			</div>
 
 			<div id="top-charts" class="portfolio grid-container portfolio-6 dark clearfix">
@@ -184,7 +184,7 @@
 									<a href="#" class="left-icon"><i class="icon-line-folder"></i></a>
 									<a href="#" class="right-icon"><i class="icon-line-share"></i></a>
 								-->
-								<%= link_to video_path(post), class: 'play-icon track-list center-icon', 'data-title'=>"Maq Amor", 'data-singer'=>"The Universe" do %>
+								<%= link_to video_path(post), class: 'play-icon track-list center-icon', 'data-title'=>"#{post.name}", 'data-singer'=>"#{post.name}" do %>
 									<i class="icon-play"></i>
 								<% end %>
 

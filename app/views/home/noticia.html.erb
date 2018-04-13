@@ -1,4 +1,4 @@
-<div class="clearfix swiper_wrapper" style="background: #444; height: 800px" >  
+<div class="clearfix swiper_wrapper" style="background: #444; height: 1250px" >  
 
     <div class="container clearfix">                
         <div class="divcenter topmargin-lg" style="max-width: 800px;">
@@ -15,7 +15,47 @@
         <center><p class="muted" style="margin-top: 10px; color: #999;"><%= @post.body %></p></center>
     </div>
     
-            
+
+    <div class="heading-block bottommargin-sm topmargin noborder dark">
+        <center><h3>Relacionadas</h3></center>
+        <hr>
+    </div>
+
+    <div id="top-charts" class="portfolio grid-container portfolio-6 dark clearfix">
+
+        <% @posts.each do |post| %>
+            <% if post != @post %>
+            <article class="portfolio-item" data-animate="fadeIn" data-delay="700" width="200" height="280">
+                <div class="portfolio-image" width="200" height="280">
+                    <a href="#">
+                        <img src="<%= post.image %>" alt="" style="width: 173px; height: 240px;" >
+                        <!--style="width: 173; height: 240;"-->
+                    </a>
+                    <div class="portfolio-overlay">
+                        <!--
+                            <a href="#" class="left-icon"><i class="icon-line-folder"></i></a>
+                            <a href="#" class="right-icon"><i class="icon-line-share"></i></a>
+                        -->
+                        <%= link_to video_path(post), class: 'play-icon track-list center-icon', 'data-title'=>"#{post.name}", 'data-singer'=>"#{post.name}" do %>
+                            <i class="icon-play"></i>
+                        <% end %>
+
+                        <%= post.name %>
+                    
+                    </div>
+                </div>
+                <div class="portfolio-desc">
+                    <h3><%= link_to post.name.truncate(22), video_path(post) %></h3>
+                    <!--<span><a href="#">Categoria</a></span>-->
+                </div>
+            </article>
+            <% end %>
+            <h1><% @posts.count <= 5 %></h1>
+
+        <% end %>
+
+    </div>
+        
 </div>
 
 <script>
