@@ -32,8 +32,13 @@ class HomeController < ApplicationController
   end
 
   def buscar
-    #@posts = Post.where("name LIKE ?", "%#{params[:q]}%").order(created_at: :desc)
-    @posts = Post.where("name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q].downcase}%", "%#{params[:q].downcase}%", "%#{params[:q].titleize}%", "%#{params[:q].titleize}%", "%#{params[:q].capitalize}%", "%#{params[:q].capitalize}%" ).order(created_at: :desc)
+    #@posts = Post.where("name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ? OR name LIKE ? OR body LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q].downcase}%", "%#{params[:q].downcase}%", "%#{params[:q].titleize}%", "%#{params[:q].titleize}%", "%#{params[:q].capitalize}%", "%#{params[:q].capitalize}%" ).order(created_at: :desc)
+    @areglo = []
+    params[:q].split.each do |palabra|
+      @areglo << Post.where("name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ?", "%#{palabra}%", "%#{palabra}%", "%#{palabra.downcase}%", "%#{palabra.downcase}%", "%#{palabra.titleize}%", "%#{palabra.titleize}%", "%#{palabra.capitalize}%", "%#{palabra.capitalize}%").where(state:true).order(:name)
+    end
+    @posts = @areglo
+
     render 'buscar'
   end
 
