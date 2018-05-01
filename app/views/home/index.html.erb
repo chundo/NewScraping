@@ -28,13 +28,14 @@
 									</h3>
 								</div>
 								<div class="text-overlay-meta">
-									<a href="#"><%= post.created_at >= Time.now - 5.days %></a>
+									<a href="#"><% post.created_at >= Time.now - 5.days %></a>
 								</div>
 							</div>
 							<div class="on-hover">
-								<%= link_to video_path(post), class: 'play-icon track-list', 'data-title'=>"#{post.name}", 'data-singer'=>"#{post.name}" do %>
+								<%= link_to video_path(post), class: 'play-icon track-list center-icon', 'data-title'=>"#{post.name}", 'data-singer'=>"#{post.name}" do %>
 									<i class="icon-play"></i>
 								<% end %>
+
 							</div>
 						</div>
 					</div>
@@ -70,7 +71,7 @@
 											<img src="<%= post.image %>" style="width: 558px; height: 480px;" alt="<%= post.name %>">
 											<div class="overlay">
 												<div class="text-overlay">
-													<span class="font-primary"><%= post.sources %></span>
+													<span class="font-primary"><%= post.sources.gsub('http://' || 'https://', '').gsub('www.', '').gsub('.com', '').gsub('/', '') %></span>
 													<div class="text-overlay-title">
 														<h2><%= link_to post.name, video_path(post), :class => "font-secondary" %></h2>
 													</div>
@@ -79,7 +80,7 @@
 														<i class="icon-play"></i>Play
 													<% end %>
 													
-													<%= link_to videos_i_path(post.name), :class => "button button-circle button-small button-border button-white button-light t400 ls1 clearfix", :style => "width: auto;display: inline-block; margin-top: 15px" do %>
+													<%= link_to videos_i_path(post), :class => "button button-circle button-small button-border button-white button-light t400 ls1 clearfix", :style => "width: auto;display: inline-block; margin-top: 15px" do %>
 														<i class="icon-play"></i>Ver Todos
 													<% end %>
 												</div>
@@ -98,7 +99,7 @@
 											</a>
 											<div class="overlay">
 												<div class="text-overlay">
-													<span class="font-primary"><%= post.sources %></span>
+													<span class="font-primary"><%= post.sources.gsub('http://' || 'https://', '').gsub('www.', '').gsub('.com', '').gsub('/', '') %></span>
 													<div class="text-overlay-title">
 														<h2><%= link_to post.name, video_path(post), :class => "font-secondary" %></h2>
 													</div>
@@ -118,7 +119,7 @@
 											</a>
 											<div class="overlay">
 												<div class="text-overlay">
-													<span class="font-primary"><%= post.sources %></span>
+													<span class="font-primary"><%= post.sources.gsub('http://' || 'https://', '').gsub('www.', '').gsub('.com', '').gsub('/', '') %></span>
 													<div class="text-overlay-title">
 														<h2><%= link_to post.name, video_path(post), :class => "font-secondary" %></h2>
 													</div>
@@ -138,7 +139,7 @@
 											</a>
 											<div class="overlay">
 												<div class="text-overlay">
-													<span class="font-primary"><%= post.sources %></span>
+													<span class="font-primary"><%= post.sources.gsub('http://' || 'https://', '').gsub('www.', '').gsub('.com', '').gsub('/', '') %></span>
 													<div class="text-overlay-title">
 														<h2><%= link_to post.name, video_path(post), :class => "font-secondary" %></h2>
 													</div>
@@ -146,7 +147,7 @@
 														<i class="icon-play"></i>Play
 													<% end %>
 													
-													<%= link_to videos_i_path(post.name), :class => "button button-circle button-small button-border button-white button-light t400 ls1 clearfix", :style => "width: auto;display: inline-block; margin-top: 15px" do %>
+													<%= link_to videos_i_path(post), :class => "button button-circle button-small button-border button-white button-light t400 ls1 clearfix", :style => "width: auto;display: inline-block; margin-top: 15px" do %>
 														<i class="icon-play"></i>Ver Todos
 													<% end %>
 												</div>

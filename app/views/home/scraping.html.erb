@@ -1,3 +1,4 @@
+<br>
 <%= form_tag(scraping_path, :class => 'col-12') do %>
     <%= text_field_tag :url, nil, :class => 'input-code col-12', :placeholder => "Giveback code" %>
     <%= submit_tag('Submit', :class => 'col-12 input-submit-code', 'data-disable-with'=>'Give back') %>
@@ -5,3 +6,7 @@
 
 http://www.planetatvonlinehd.com/<br>
 http://www.cliver.tv/<br>
+
+<% if user_signed_in? %>
+	<center><h1>Hola <%= current_user.email %></h1></center>
+<% end %>

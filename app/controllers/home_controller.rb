@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   require 'graphql'
   require 'json'
 
+  before_action :authenticate_user!, :only => ['scraping']
+
   before_action :covers_header
 
   def index
@@ -37,14 +39,20 @@ class HomeController < ApplicationController
     params[:q].split.each do |palabra|
       @areglo << Post.where("name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ?", "%#{palabra}%", "%#{palabra}%", "%#{palabra.downcase}%", "%#{palabra.downcase}%", "%#{palabra.titleize}%", "%#{palabra.titleize}%", "%#{palabra.capitalize}%", "%#{palabra.capitalize}%").where(state:true).order(:name)
     end
-    @posts = @areglo
-
+    @posts = @areglo[0]
     render 'buscar'
   end
 
   def videos
-    @posts = Post.where("name LIKE ? or body LIKE ? ", "%#{params[:id]}%", "%#{params[:id]}%").order(created_at: :desc)
+    #@posts = Post.where("name LIKE ? or body LIKE ? ", "%#{params[:id]}%", "%#{params[:id]}%").order(created_at: :desc)
+    @posts = Post.friendly.find(params[:id])
+    @areglo = []
+    @posts.name.split.each do |palabra|
+      @areglo << Post.where("name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ? or name LIKE ? or body LIKE ?", "%#{palabra}%", "%#{palabra}%", "%#{palabra.downcase}%", "%#{palabra.downcase}%", "%#{palabra.titleize}%", "%#{palabra.titleize}%", "%#{palabra.capitalize}%", "%#{palabra.capitalize}%").where(state:true).order(:name)
+    end
+    @posts = @areglo[0]
     render 'buscar'
+    
   end
 
   def scraping
